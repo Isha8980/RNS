@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <%- include('partials/theme-init') %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= chapter.title %> — The Warm Corner</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%- include('partials/nav') %>
+
+  <main class="page">
+    <p class="page-intro"><a href="/">Back to Chapters</a></p>
+
+    <div class="chapter-header">
+      <h1><%= chapter.title %></h1>
+      <p class="chapter-posted">Posted <%= chapter.created_at.toDateString() %></p>
+    </div>
+
+    <div class="vote-panel">
+      <span class="vote-count"><%= voteCount %> vote<%= voteCount === 1 ? '' : 's' %></span>
+      <form method="POST" action="/chapters/<%= chapter.id %>/vote" class="inline-form">
+        <button type="submit" class="btn <%= hasVoted ? 'btn-primary' : 'btn-outline' %>">
+          <%= hasVoted ? 'Unvote' : 'Vote' %>
+        </button>
+      </form>
+    </div>
+
+    <% paragraphs.forEach(function(paragraph, index) { %>
+      <div id="paragraph-<%= index %>" class="paragraph-block" data-paragraph-index="<%= index %>">
+        <p class="paragraph-text"><%= paragraph %></p>
+
+        <% var paragraphComments = commentsByParagraph[index] || []; %>
+        <% if (paragraphComments.length > 0) { %>
+          <div class="comments-list">
+            <% paragraphComments.forEach(function(comment) { %>
+              <p class="comment"><span class="comment-author"><%= comment.username %>:</span> <%= comment.text %></p>
+            <% }); %>
+          </div>
+        <% } %>
+
+        <form method="POST" action="/chapters/<%= chapter.id %>/comments" class="stack-form comment-form">
+          <input type="hidden" name="paragraph_index" value="<%= index %>">
+          <label>
+            Add a comment
+            <textarea name="text" rows="2" required></textarea>
+          </label>
+          <button type="submit" class="btn btn-outline">Post Comment</button>
+        </form>
+      </div>
+    <% }); %>
+  </main>
+
+  <script src="/js/theme-toggle.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <%- include('partials/theme-init') %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — The Warm Corner</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%- include('partials/nav') %>
+
+  <main class="page">
+    <h1>Admin</h1>
+
+    <h2>Chapters</h2>
+    <p><a href="/admin/chapters/new" class="btn btn-primary">Post New Chapter</a></p>
+
+    <h2>Create Reader Account</h2>
+
+    <% if (error) { %>
+      <p class="error-message"><%= error %></p>
+    <% } %>
+
+    <form method="POST" action="/admin/users" class="stack-form">
+      <label>
+        Username
+        <input type="text" name="username" required>
+      </label>
+      <label>
+        Password
+        <input type="password" name="password" required>
+      </label>
+      <button type="submit" class="btn btn-primary">Create Reader</button>
+    </form>
+
+    <h2>Existing Users</h2>
+    <ul class="user-list">
+      <% users.forEach(function(u) { %>
+        <li class="user-list-item">
+          <span><%= u.username %></span>
+          <span class="role-badge"><%= u.role %></span>
+        </li>
+      <% }); %>
+    </ul>
+  </main>
+
+  <script src="/js/theme-toggle.js"></script>
+</body>
+</html>

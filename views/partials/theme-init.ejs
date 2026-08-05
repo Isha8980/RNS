@@ -1,0 +1,13 @@
+<script>
+  // Runs synchronously, before the stylesheet paints, so the page never
+  // flashes the wrong theme. Checks localStorage first (the reader's
+  // explicit choice); falls back to their OS-level light/dark preference
+  // if they haven't picked one yet.
+  (function () {
+    var stored = localStorage.getItem('theme');
+    var theme = stored === 'light' || stored === 'dark'
+      ? stored
+      : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>

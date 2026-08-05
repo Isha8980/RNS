@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <%- include('partials/theme-init') %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post New Chapter — The Warm Corner</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%- include('partials/nav') %>
+
+  <main class="page">
+    <h1>Post New Chapter</h1>
+    <p class="page-intro"><a href="/admin">Back to Admin</a></p>
+
+    <% if (error) { %>
+      <p class="error-message"><%= error %></p>
+    <% } %>
+
+    <form method="POST" action="/admin/chapters" class="stack-form wide-form">
+      <label>
+        Title
+        <input type="text" name="title" required>
+      </label>
+      <label>
+        Content (leave a blank line between paragraphs)
+        <textarea name="content" rows="20" required></textarea>
+      </label>
+      <button type="submit" class="btn btn-primary">Post Chapter</button>
+    </form>
+  </main>
+
+  <script src="/js/theme-toggle.js"></script>
+</body>
+</html>

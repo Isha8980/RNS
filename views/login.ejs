@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <%- include('partials/theme-init') %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log In — The Warm Corner</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%- include('partials/nav') %>
+
+  <main class="page">
+    <h1>Log In</h1>
+
+    <% if (error) { %>
+      <p class="error-message"><%= error %></p>
+    <% } %>
+
+    <form method="POST" action="/login" class="stack-form">
+      <label>
+        Username
+        <input type="text" name="username" required autofocus>
+      </label>
+      <label>
+        Password
+        <input type="password" name="password" required>
+      </label>
+      <button type="submit" class="btn btn-primary">Log In</button>
+    </form>
+  </main>
+
+  <script src="/js/theme-toggle.js"></script>
+</body>
+</html>
